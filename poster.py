@@ -49,7 +49,7 @@ def post_youtube(folder, meta):
 def post_instagram(folder, meta):
     uid, tok = os.environ["IG_USER_ID"], os.environ["IG_ACCESS_TOKEN"]
     url = f"{os.environ['PUBLIC_BASE_URL']}/{urllib.parse.quote(folder)}/video.mp4"
-    g = f"https://graph.facebook.com/v21.0"
+    g = f"https://graph.instagram.com/v21.0"
     r = requests.post(f"{g}/{uid}/media", data={"media_type": "REELS", "video_url": url,
                       "caption": meta["description"][:2200], "access_token": tok}, timeout=60)
     r.raise_for_status()

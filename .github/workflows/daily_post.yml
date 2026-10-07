@@ -1,0 +1,22 @@
+name: Daily post at 5:55 PM IST
+on:
+  schedule:
+    - cron: "25 12 * * *"   # 12:25 UTC = 17:55 IST
+  workflow_dispatch:
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install requests google-api-python-client google-auth
+      - run: python poster.py
+        env:
+          START_DATE: ${{ vars.START_DATE }}
+          PUBLIC_BASE_URL: ${{ vars.PUBLIC_BASE_URL }}
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
